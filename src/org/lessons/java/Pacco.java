@@ -53,7 +53,7 @@ public abstract class Pacco {
 
     @Override
     public String toString() {
-        return String.format("Code: %s - Weight: %d - Dest: %s", code, weight, destination);
+        return String.format("Code: %s - Weight: %f - Dest: %s", code, weight, destination);
     }
 
 }

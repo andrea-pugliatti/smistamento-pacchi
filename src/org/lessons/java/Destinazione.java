@@ -4,6 +4,11 @@ public class Destinazione {
     private String city;
     private String address;
 
+    public Destinazione(String city, String address) {
+        this.city = city;
+        this.address = address;
+    }
+
     public String getCity() {
         return this.city;
     }
