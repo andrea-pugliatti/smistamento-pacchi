@@ -6,6 +6,7 @@ public class PaccoStandard extends Pacco {
         super(code, weight, destination);
     }
 
+    @Override
     public double calcolaCostoSpedizione() {
         return this.getWeight() * 1.0;
     }
