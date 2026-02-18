@@ -4,32 +4,44 @@ public class CentroSmistamento {
     private static Pacco[] nastroTrasportatore = new Pacco[10];
     private static Bin[] bins = new Bin[3];
 
+    public static void smistaPacco(int index) {
+        String paccoCity = nastroTrasportatore[index].getDestination().getCity();
+        boolean isAdded = false;
+
+        for (int i = 0; i < bins.length && !isAdded; i++) {
+            if (!paccoCity.equals(bins[i].getDestination())) {
+                continue;
+            }
+
+            Pacco[] slots = bins[i].getPackages();
+
+            for (int j = 0; j < slots.length; j++) {
+                if (slots[j] == null) {
+                    slots[j] = nastroTrasportatore[index];
+                    nastroTrasportatore[index] = null;
+                    isAdded = true;
+                    break;
+                }
+            }
+        }
+
+    }
+
     public static void smista() {
+        for (int i = 0; i < nastroTrasportatore.length; i++) {
+            if (nastroTrasportatore[i] == null || !(nastroTrasportatore[i] instanceof PaccoUrgente)) {
+                continue;
+            }
+
+            smistaPacco(i);
+        }
+
         for (int i = 0; i < nastroTrasportatore.length; i++) {
             if (nastroTrasportatore[i] == null) {
                 continue;
             }
 
-            String paccoCity = nastroTrasportatore[i].getDestination().getCity();
-            boolean isAdded = false;
-
-            for (int j = 0; j < bins.length && !isAdded; j++) {
-                if (!paccoCity.equals(bins[j].getDestination())) {
-                    continue;
-                }
-
-                Pacco[] slots = bins[j].getPackages();
-
-                for (int k = 0; k < slots.length; k++) {
-                    if (slots[k] == null) {
-                        slots[k] = nastroTrasportatore[i];
-                        nastroTrasportatore[i] = null;
-                        isAdded = true;
-                        break;
-                    }
-                }
-            }
-
+            smistaPacco(i);
         }
     }
 
